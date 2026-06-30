@@ -338,6 +338,50 @@ Please reply with:
 YES, I CONFIRM THE ORDER WITH ALPINE CONCIERGE TIROL
 
 With your confirmation, you authorize us to organize the services listed above.`;
+  } else if (lang === 'Italiano') {
+  wa = `Alpine Concierge Tirol – Offerta ${offerNo}
+
+Gentile ${document.getElementById('name').value || ''},
+
+grazie per la Sua richiesta.
+
+Servizio / richiesta:
+${free || selected.map(s => '• ' + s.name).join('\n') || '• servizio concierge individuale'}
+
+Data/periodo: ${document.getElementById('date').value || 'da concordare'}
+Persone: ${persons}
+Regione: ${document.getElementById('region').value}
+
+Onorario concierge: ${euro(total)}
+
+Costi esterni come ristorante, taxi, biglietti, maestri di sci, guide o altri servizi di terzi saranno addebitati separatamente.
+
+La preghiamo di rispondere con:
+SÌ, CONFERMO L’INCARICO AD ALPINE CONCIERGE TIROL
+
+Con la Sua conferma ci autorizza a organizzare i servizi sopra indicati.`;
+} else if (lang === 'Français') {
+  wa = `Alpine Concierge Tirol – Offre ${offerNo}
+
+Bonjour ${document.getElementById('name').value || ''},
+
+merci pour votre demande.
+
+Service / demande:
+${free || selected.map(s => '• ' + s.name).join('\n') || '• service de conciergerie individuel'}
+
+Date/période : ${document.getElementById('date').value || 'à convenir'}
+Personnes : ${persons}
+Région : ${document.getElementById('region').value}
+
+Honoraires de conciergerie : ${euro(total)}
+
+Les frais externes tels que restaurant, taxi, billets, moniteurs de ski, guides ou autres prestations de tiers seront facturés séparément.
+
+Veuillez répondre avec:
+OUI, JE CONFIRME LA COMMANDE AUPRÈS D’ALPINE CONCIERGE TIROL
+
+Avec votre confirmation, vous nous autorisez à organiser les services mentionnés ci-dessus.`;
 } else {
   wa = `Alpine Concierge Tirol – Angebot ${offerNo}
 
