@@ -311,16 +311,44 @@ rows.forEach(r => {
  document.getElementById('totalAmount').textContent=euro(total);
  document.getElementById('classText').textContent='Kategorie: '+cls;
  document.getElementById('outNote').textContent=document.getElementById('note').value||'Dieses Angebot betrifft ausschließlich das Concierge-Honorar. Fremdkosten werden separat verrechnet.';
- const wa = `Alpine Concierge Tirol – Angebot ${offerNo}
+ const lang = document.getElementById('lang').value;
+const serviceLines = free || selected.map(s => '• ' + s.name).join('\n') || '• individuelle Concierge-Leistung';
 
-Guten Tag ${document.getElementById('name').value||''},
+let wa;
+
+if (lang === 'English') {
+  wa = `Alpine Concierge Tirol – Offer ${offerNo}
+
+Dear ${document.getElementById('name').value || ''},
+
+Thank you for your request.
+
+Service / request:
+${free || selected.map(s => '• ' + s.name).join('\n') || '• individual concierge service'}
+
+Date/period: ${document.getElementById('date').value || 'by arrangement'}
+Persons: ${persons}
+Region: ${document.getElementById('region').value}
+
+Concierge fee: ${euro(total)}
+
+External costs such as restaurant, taxi, tickets, ski instructors, guides or other third-party services will be charged separately.
+
+Please reply with:
+YES, I CONFIRM THE ORDER WITH ALPINE CONCIERGE TIROL
+
+With your confirmation, you authorize us to organize the services listed above.`;
+} else {
+  wa = `Alpine Concierge Tirol – Angebot ${offerNo}
+
+Guten Tag ${document.getElementById('name').value || ''},
 
 vielen Dank für Ihre Anfrage.
 
 Leistung / Wunsch:
-${free||selected.map(s=>'• '+s.name).join('\n')||'• individuelle Concierge-Leistung'}
+${serviceLines}
 
-Datum/Zeitraum: ${document.getElementById('date').value||'nach Vereinbarung'}
+Datum/Zeitraum: ${document.getElementById('date').value || 'nach Vereinbarung'}
 Personen: ${persons}
 Region: ${document.getElementById('region').value}
 
@@ -332,6 +360,7 @@ Bitte antworten Sie mit:
 JA, ICH BEAUFTRAGE ALPINE CONCIERGE TIROL
 
 Mit Ihrer Bestätigung erteilen Sie den Auftrag zur Organisation der oben genannten Leistungen.`;
+}
  document.getElementById('waText').textContent=wa;
  window.currentWa=wa;
 }
