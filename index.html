@@ -262,8 +262,41 @@ Datum/Zeitraum: ${document.getElementById('date').value||'nach Vereinbarung'}
 
 ${free||'Individuelle Concierge-Leistung gemäß ausgewählter Positionen.'}`;
  const badges=[...selected.map(s=>s.name),...factors.map(f=>f.name)];
- document.getElementById('outBadges').innerHTML = badges.length?badges.map(b=>`<span class="badge">${b}</span>`).join(''):'<span class="note">Noch keine Leistung ausgewählt.</span>';
- document.getElementById('priceRows').innerHTML = rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${euro(r[2])}</td></tr>`).join('');
+const badgesEl = document.getElementById('outBadges');
+badgesEl.textContent = '';
+
+if (badges.length) {
+  badges.forEach(b => {
+    const span = document.createElement('span');
+    span.className = 'badge';
+    span.textContent = b;
+    badgesEl.appendChild(span);
+  });
+} else {
+  const span = document.createElement('span');
+  span.className = 'note';
+  span.textContent = 'Noch keine Leistung ausgewählt.';
+  badgesEl.appendChild(span);
+}
+
+const priceRowsEl = document.getElementById('priceRows');
+priceRowsEl.textContent = '';
+
+rows.forEach(r => {
+  const tr = document.createElement('tr');
+
+  const tdPosition = document.createElement('td');
+  tdPosition.textContent = r[0];
+
+  const tdNote = document.createElement('td');
+  tdNote.textContent = r[1];
+
+  const tdPrice = document.createElement('td');
+  tdPrice.textContent = euro(r[2]);
+
+  tr.append(tdPosition, tdNote, tdPrice);
+  priceRowsEl.appendChild(tr);
+});
  document.getElementById('totalAmount').textContent=euro(total);
  document.getElementById('classText').textContent='Kategorie: '+cls;
  document.getElementById('outNote').textContent=document.getElementById('note').value||'Dieses Angebot betrifft ausschließlich das Concierge-Honorar. Fremdkosten werden separat verrechnet.';
