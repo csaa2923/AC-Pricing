@@ -216,7 +216,18 @@ const serviceData = [
  ['Wellness / Spa / Massage',69,'Relax'],['Private Chef / Catering',149,'Premium'],['Kinderprogramm / Babysitter',89,'Familie'],['Hundeservice',59,'Pet friendly'],
  ['Geburtstag / Überraschung',99,'Special'],['VIP-Reservierung',149,'Exklusiv'],['Tagesprogramm komplett',199,'Premium'],['Event / Gruppe',299,'Ab XL']
 ];
-let offerNo = 'ACT-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random()*9000)+1000);
+function getNextOfferNo() {
+  const year = new Date().getFullYear();
+  const key = 'actLastOfferNo_' + year;
+  const last = Number(localStorage.getItem(key) || '0');
+  const next = last + 1;
+
+  localStorage.setItem(key, String(next));
+
+  return 'ACT-' + year + '-' + String(next).padStart(4, '0');
+}
+
+let offerNo = getNextOfferNo();
 function euro(n){return Math.max(0, Math.round(n)).toLocaleString('de-DE') + ' €'}
 function init(){
  document.getElementById('offerNo').textContent = offerNo;
